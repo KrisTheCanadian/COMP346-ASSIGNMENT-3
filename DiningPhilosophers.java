@@ -38,12 +38,24 @@ public class DiningPhilosophers {
      */
     public static void main(String[] argv) {
         try {
-            /*
-             * TODO:
-             * Should be settable from the command line
-             * or the default if no arguments supplied.
-             */
-            int iPhilosophers = DEFAULT_NUMBER_OF_PHILOSOPHERS;
+            int iPhilosophers = 0;
+            if (argv.length == 0){
+                iPhilosophers = DEFAULT_NUMBER_OF_PHILOSOPHERS;
+            } else {
+                try {
+                    iPhilosophers = Integer.parseInt(argv[0]);
+                } catch(NumberFormatException e){
+                    InvalidArgsTermination(argv[0]);
+                }
+                if(iPhilosophers < 1){
+                    InvalidArgsTermination(argv[0]);
+                }
+                if(iPhilosophers == 1){
+                    System.out.println("Your Philosopher starved to death since there is only 1 chopstick.");
+                    System.exit(1);
+                }
+                
+            }
 
             // Make the monitor aware of how many philosophers there are
             soMonitor = new Monitor(iPhilosophers);
@@ -57,11 +69,7 @@ public class DiningPhilosophers {
                 aoPhilosophers[j].start();
             }
 
-            System.out.println
-                    (
-                            iPhilosophers +
-                                    " philosopher(s) came in for a dinner."
-                    );
+            System.out.println(iPhilosophers + " philosopher(s) came in for a dinner.");
 
             // Main waits for all its children to die...
             // I mean, philosophers to finish their dinner.
@@ -75,6 +83,11 @@ public class DiningPhilosophers {
             System.exit(1);
         }
     } // main()
+
+    private static void InvalidArgsTermination(String s) {
+        System.out.println(s + " is not a positive decimal integer \n Usage: java DiningPhilosophers [NUMBER_OF_PHILOSOPHERS]");
+        System.exit(1);
+    }
 
     /**
      * Outputs exception information to STDERR
