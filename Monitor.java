@@ -72,6 +72,7 @@ public class Monitor {
                 e.printStackTrace();
             }
         }
+        talking = true;
     }
 
     /**

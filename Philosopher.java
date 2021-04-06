@@ -71,7 +71,7 @@ public class Philosopher extends BaseThread {
      */
     public void talk() {
         currentState = Action.Talking;
-        System.out.println("Philosopher # " + this.iTID + " is now starting to to talk.");
+        System.out.println("Philosopher # " + this.iTID + " is now starting to talk.");
         Thread.yield();
         saySomething();
         Thread.yield();
