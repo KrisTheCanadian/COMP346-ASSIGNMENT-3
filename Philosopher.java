@@ -36,6 +36,11 @@ public class Philosopher extends BaseThread {
             DiningPhilosophers.reportException(e);
             System.exit(1);
         }
+
+        //This should help with starvation
+        int threadPriority = Thread.currentThread().getPriority();
+        int newThreadPriority = threadPriority - 1 > 0? (threadPriority - 1) % Thread.MAX_PRIORITY: Thread.NORM_PRIORITY;
+        Thread.currentThread().setPriority(newThreadPriority);
     }
 
     /**

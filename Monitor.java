@@ -33,8 +33,6 @@ public class Monitor {
         int chopstick1Id = piTID % chopsticks.length;
         int chopstick2Id = (piTID - 1) % chopsticks.length;
 
-        //Philosopher 1
-
         while(chopsticks[Math.min(chopstick1Id, chopstick2Id)].usedBy() != -1 || chopsticks[Math.max(chopstick1Id, chopstick2Id)].usedBy() != -1){
             try {
                 wait();
@@ -55,6 +53,7 @@ public class Monitor {
     public synchronized void putDown(final int piTID) {
         int chopstick1Id = piTID % chopsticks.length;
         int chopstick2Id = (piTID - 1) % chopsticks.length;
+
         chopsticks[chopstick2Id].usedBy(-1);
         chopsticks[chopstick1Id].usedBy(-1);
         notifyAll();
